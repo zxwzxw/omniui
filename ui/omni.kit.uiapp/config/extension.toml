@@ -1,0 +1,20 @@
+[core]
+order = -500
+reloadable = false
+
+[package]
+title = "UI App"
+description = "UI App."
+
+[dependencies]
+"omni.kit.renderer.core" = {}
+"omni.kit.mainwindow" = {}
+"omni.uiaudio" = {}
+
+
+[[test]]
+waiver = "Empty extension that provides broadcasting dependencies"
+
+dependencies = [
+    "omni.kit.test",
+]

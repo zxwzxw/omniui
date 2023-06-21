@@ -1,0 +1,88 @@
+[core]
+reloadable = false
+
+[package]
+title = "The UI Framework"
+category = "Internal"
+description = "The Omniverse UI Framework"
+version = "2.14.4"
+changelog="docs/CHANGELOG.md"
+keywords = ['ui', 'core']
+
+[dependencies]
+"omni.appwindow" = {}
+"omni.kit.renderer.imgui" = {}
+
+[[native.plugin]]
+path = "bin/omni.ui"
+
+[[python.module]]
+name = "omni.ui"
+
+[settings]
+# Set this flag to true to draw a rectangle on top of rasterized widgets to
+# visualize the rasterized area
+exts."omni.ui".raster.draw_debug = false
+
+# Number of frames to wait before rasterizing a widget. This is necessary
+# because widgets are fully updated several frames after they have been dirtied.
+exts."omni.ui".raster.delay = 2
+
+# Used to enable or disable the rasterization of windows in an application as a
+# default rasterization policy. When this variable is set to true, the
+# rasterization of windows will be enabled by default, and the rasterization
+# policy of each window will depend on this variable unless an explicit policy
+# has been set for the window. If the variable is set to false, the
+# rasterization of windows will be disabled by default, and the windows will be
+# drawn directly to the screen without being rasterized first unless an explicit
+# policy has been set for the window.
+exts."omni.ui".raster.default_rasterpolicy_enabled = false
+
+[[test]]
+args = [
+    "--/app/window/dpiScaleOverride=1.0",
+    "--/app/window/scaleToMonitor=false",
+    "--/renderer/enabled=pxr",
+    "--/renderer/active=pxr",
+    "--/renderer/multiGpu/enabled=false",
+    "--/renderer/multiGpu/autoEnable=false",
+    "--/renderer/multiGpu/maxGpuCount=1",
+    "--/exts/omni.ui/raster/draw_debug=true",
+    "--/renderer/decoupledPresent/supported=true",
+    "--/renderer/decoupledPresent/unittest=true",
+    "--/exts/omni.kit.renderer.core/imgui/csvDump/enabled=true",
+    "--/exts/omni.kit.renderer.core/imgui/csvDump/path=\"\"",
+    "--no-window"
+]
+
+dependencies = [
+    "omni.kit.pipapi",
+    "omni.kit.renderer.capture",
+    "omni.kit.test",
+    "omni.kit.ui_test",
+    # "omni.warp",  # outside kit repo, uncomment to run test_byteimageprovider_from_warp locally
+]
+
+stdoutFailPatterns.exclude = [
+    "*omniclient: Initialization failed*",
+    "*Duplicated plugin name:*",
+    "*failed to load native plugin:*",
+    "*Failed to load the texture*",
+    "*[omni.ui]*::*had no model*",
+    "*[omni.ui]*subscription was invalid*",
+]
+
+pythonTests.unreliable = [
+    "*test_modal1", # OM-77815
+]
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+cpp_api = [
+     "../../../include/omni/ui/Alignment.h",
+     "../../../include/omni/ui/Workspace.h",
+     "../../../include/omni/ui/WindowHandle.h",
+]

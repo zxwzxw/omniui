@@ -1,0 +1,56 @@
+[core]
+reloadable = false
+
+[package]
+version = "1.6.30"
+category = "Internal"
+
+[dependencies]
+"omni.usd.core" = {}
+"omni.usd.schema.anim" = {}
+"omni.usd.schema.omnigraph" = {}
+"omni.usd.schema.omniscripting" = {}
+"omni.usd.schema.physics" = {}
+"omni.timeline" = {}
+"omni.assets.plugins" = {}
+"omni.kit.audiodeviceenum" = {}
+"omni.kit.commands" = {}
+"omni.hydra.scene_delegate" = {}
+"omni.hydra.usdrt_delegate" = {}
+"carb.audio" = {}
+"omni.kit.widget.nucleus_connector"= {optional=true}
+
+
+[[python.module]]
+name = "omni.usd"
+
+[[python.module]]
+name = "omni.usd.audio"
+
+[[python.module]]
+name = "omni.usd.commands"
+
+[[python.module]]
+name = "config.defaultcontext"
+public = false
+
+[[python.module]]
+name = "omni.stageupdate"
+
+[[python.module]]
+name = "usd.schema.kit"
+
+[[python.scriptFolder]]
+path = "scripts"
+
+
+[[native.plugin]]
+path = "bin/*.plugin"
+
+[settings]
+exts."omni.usd".mdl.populateInputsOnLoaded = false
+persistent.app.primCreation.DefaultRotationOrder = "XYZ"
+persistent.app.primCreation.DefaultCameraRotationOrder = "YXZ"
+persistent.app.stage.movePrimInPlace = true
+persistent.app.stage.instanceableOnCreatingReference = false
+persistent.app.primCreation.DefaultXformOpType = "Scale, Rotate, Translate"
